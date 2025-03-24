@@ -1,95 +1,101 @@
+
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Corban Basic</title>
+  <meta charset="UTF-8">
+  <title>Landing Corban Basic – AC Financeira</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      padding: 40px;
-      text-align: center;
+      padding: 20px;
+      background-color: #f9f9f9;
+      color: #333;
     }
-    .form-container {
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+    .form-box {
       background: white;
-      padding: 30px;
-      max-width: 400px;
-      margin: 0 auto;
-      border-radius: 8px;
+      padding: 20px;
+      border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-top: 50px;
     }
-    input {
+    input, button {
       width: 100%;
-      padding: 10px;
-      margin: 10px 0;
+      padding: 12px;
+      margin-bottom: 15px;
       border: 1px solid #ccc;
       border-radius: 5px;
     }
     button {
-      background-color: #ff9900;
+      background-color: #6A1B9A;
       color: white;
-      padding: 12px;
-      width: 100%;
-      border: none;
-      border-radius: 5px;
       font-size: 16px;
+      border: none;
       cursor: pointer;
     }
-    button:hover {
-      background-color: #e88b00;
+    #mensagem {
+      color: green;
+      font-weight: bold;
+      display: none;
+      margin-top: 20px;
+      text-align: center;
     }
   </style>
 </head>
 <body>
 
-  <h1>Corban Basic</h1>
-  <p>Preencha seus dados para se cadastrar:</p>
+<div class="container">
+  <h1>Seja um Corban Basic</h1>
+  <p>Faça parte da equipe AC Financeira e inicie sua jornada no crédito consignado com estrutura, sistema e suporte completo.</p>
 
-  <div class="form-container">
-    <input type="text" id="nome" placeholder="Seu nome completo" required />
-    <input type="email" id="email" placeholder="Seu e-mail" required />
-    <input type="tel" id="telefone" placeholder="Seu WhatsApp" required />
-    <button onclick="enviarFormulario()">Cadastrar Agora</button>
+  <!-- Formulário -->
+  <div class="form-box">
+    <h2>Cadastro Corban Basic</h2>
+    <form id="formularioCorban">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome" required>
+
+      <label for="email">E-mail:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="telefone">WhatsApp:</label>
+      <input type="text" id="telefone" name="telefone" required>
+
+      <button type="submit">Quero Ser Corban Basic</button>
+
+      <p id="mensagem">✅ Cadastro enviado com sucesso!</p>
+    </form>
   </div>
+</div>
 
-  <script>
-    function enviarFormulario() {
-      const nome = document.getElementById('nome').value;
-      const email = document.getElementById('email').value;
-      const telefone = document.getElementById('telefone').value;
+<script>
+  document.getElementById("formularioCorban").addEventListener("submit", function(e) {
+    e.preventDefault();
 
-      if (!nome || !email || !telefone) {
-        alert('Por favor, preencha todos os campos.');
-        return;
+    const dados = {
+      nome: document.getElementById("nome").value,
+      email: document.getElementById("email").value,
+      telefone: document.getElementById("telefone").value
+    };
+
+    fetch("https://script.google.com/macros/s/AKfycbxHX3jeD65TqLfc_W9rguCa5bZ49KCESkN_mCMgniPV7a_tL0dkRZF1NgdJNdCajJtC/exec", {
+      method: "POST",
+      body: JSON.stringify(dados),
+      headers: {
+        "Content-Type": "application/json"
       }
-
-      const dados = { nome, email, telefone };
-
-      fetch('https://script.google.com/macros/s/AKfycbxHX3jeD65TqLfc_W9rguCa5bZ49KCESkN_mCMgniPV7a_tL0dkRZF1NgdJNdCajJtC/exec', {
-        method: 'POST',
-        body: JSON.stringify(dados),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      .then(res => res.json())
-      .then(res => {
-        if (res.status === 'sucesso') {
-          alert('Cadastro realizado com sucesso!');
-          document.getElementById('nome').value = '';
-          document.getElementById('email').value = '';
-          document.getElementById('telefone').value = '';
-        } else {
-          alert('Erro ao enviar. Tente novamente.');
-        }
-      })
-      .catch(err => {
-        alert('Erro ao conectar com o servidor.');
-        console.error(err);
-      });
-    }
-  </script>
+    }).then(response => {
+      document.getElementById("mensagem").style.display = "block";
+      document.getElementById("formularioCorban").reset();
+    }).catch(error => {
+      alert("Erro ao enviar. Tente novamente.");
+      console.error(error);
+    });
+  });
+</script>
 
 </body>
 </html>
