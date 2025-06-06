@@ -10,31 +10,41 @@
       padding: 0;
       background-color: #f4f4f4;
       font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
     }
 
-    .title {
+    .hero {
       text-align: center;
+      padding: 100px 20px 60px;
+    }
+
+    .hero h1 {
+      font-size: 32px;
+      color: #ff9800;
       margin-bottom: 30px;
     }
 
-    .title h1 {
-      font-size: 28px;
-      color: #ff9800;
-      margin: 0;
+    .hero button {
+      padding: 14px 28px;
+      font-size: 16px;
+      background-color: #ff9800;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .hero button:hover {
+      background-color: #e68900;
     }
 
     .container {
       background-color: #fff;
       padding: 30px;
+      margin: 40px auto;
       border-radius: 12px;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
       max-width: 400px;
-      width: 100%;
+      text-align: center;
     }
 
     h2 {
@@ -51,7 +61,7 @@
       font-size: 16px;
     }
 
-    button {
+    button[type="submit"] {
       width: 100%;
       padding: 12px;
       background-color: #ff9800;
@@ -62,7 +72,7 @@
       cursor: pointer;
     }
 
-    button:hover {
+    button[type="submit"]:hover {
       background-color: #e68900;
     }
 
@@ -70,16 +80,23 @@
       margin-top: 10px;
       font-size: 14px;
       color: #666;
-      text-align: center;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
   </style>
 </head>
 <body>
-  <div class="title">
+
+  <div class="hero">
     <h1>Bem-vindo ao Corban Basic</h1>
+    <button onclick="document.getElementById('formulario').scrollIntoView({ behavior: 'smooth' })">
+      Quero ser Corban Basic
+    </button>
   </div>
 
-  <div class="container">
+  <div id="formulario" class="container">
     <h2>Preencha seus dados</h2>
     <form onsubmit="redirecionarWhatsApp(); return false;">
       <input type="text" placeholder="Nome completo" id="nome" required />
@@ -96,5 +113,6 @@
       window.open(link, "_blank");
     }
   </script>
+
 </body>
 </html>
